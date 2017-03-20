@@ -8,7 +8,16 @@
  //	console.log( "JSON Data: " + data.data);
  //}});
 
+$(document).ready(function(){
+	
+	var a = new Date();
+	var year = a.getFullYear();
+	var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+	var month = months[a.getMonth()];
+	console.log("11111111111111111111111111111111111111111" + year + "년" + month);
+	$('#monthValue').append( month+ " " + year);
 
+});
 
 
 $.ajax({   
@@ -41,14 +50,14 @@ $.ajax({
 		var sec = a.getSeconds();
 		var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
 		console.log('time is ' + time);
-		
-		console.log(i + " :: rrr :: " + time);
-		console.log(i + " :: rrr :: " + item.from);
-		console.log(i + " :: rrr :: " + item.to);
-		console.log(i + " :: rrr :: " + item.value);
-		console.log(i + " :: rrr :: " + item.gas);
-		console.log(i + " :: rrr :: " + item.gasPrice);
-		console.log("---------------------");
+//		
+//		console.log(i + " :: rrr :: " + time);
+//		console.log(i + " :: rrr :: " + item.from);
+//		console.log(i + " :: rrr :: " + item.to);
+//		console.log(i + " :: rrr :: " + item.value);
+//		console.log(i + " :: rrr :: " + item.gas);
+//		console.log(i + " :: rrr :: " + item.gasPrice);
+//		console.log("---------------------");
 		
 		$('#limtest01').append('<tr><td>'+ time + '</td>' + '<td>입금</td><td>' + item.from + '</td><td>' + 
 				item.to + '</td><td>' + item.value + '</td></tr>');
