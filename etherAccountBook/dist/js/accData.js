@@ -35,6 +35,9 @@ $.ajax({
 	console.log("msg.ss2 : " + msg.result.length);
 	  //    console.log( "Data Saved: " + jsonObj); 
     
+	var groupTime = "";
+	var totalEther 	= 0;
+	var totalGas 	= 0;
 	$.each(msg.result, function(i, item){
 
 		//console.log(i + " :: rrr :: " + item.blockNumber);
@@ -50,6 +53,20 @@ $.ajax({
 		var sec = a.getSeconds();
 		var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
 		console.log('time is ' + time);
+		if(groupTime != date  + month +  year){
+			groupTime = date  + month  +year;
+            $('#example21').append(
+              '<tbody id="'+groupTime+'" data-toggle="collapse" data-target="#' + groupTime + '888">	'
+              + '<tr><td>'+ groupTime + '</td><td>'+((totalEther<0) ? '<font color = "blue">적자</font>' : '<font color = "red">이익</font>')
+              +'</td><td>' + totalEther + '</td><td>'  
+			  + totalGas + '</td><td>' + egasprice + '</td></tr></tbody>');
+    		totalEther 	= 0;
+    		totalGas 	= 0;
+		     
+		}
+		//groupTime = date + month + year;
+		//data-toggle="collapse" data-target="#
+
 //		
 //		console.log(i + " :: rrr :: " + time);
 //		console.log(i + " :: rrr :: " + item.from);
@@ -58,9 +75,31 @@ $.ajax({
 //		console.log(i + " :: rrr :: " + item.gas);
 //		console.log(i + " :: rrr :: " + item.gasPrice);
 //		console.log("---------------------");
+		var evalue = 0;
+		var egas = 0;
+		var egasprice = 0;
+		var isInput = '<font color = "red">입금</font>';
+		if(item.value != 0){
+			evalue = item.value / 1000000000000000000;
+		}
+		if(item.gas != 0){
+			egas = item.gas / 1000000000000000000;
+		}
+		if(item.gasPrice != 0){
+			egasprice = item.gasPrice / 1000000000000000000;
+		}
+		if('0xddbd2b932c763ba5b1b7ae3b362eac3e8d40121a' == item.from){
+			isInput = '<font color="blue">출금</font>';
+			totalEther -= evalue;
+			totalGas -= egas;
+		}
+		else{
+			totalEther += evalue;
+			totalGas += egas;
+		}
 		
-		$('#limtest01').append('<tr><td>'+ time + '</td>' + '<td>입금</td><td>' + item.from + '</td><td>' + 
-				item.to + '</td><td>' + item.value + '</td></tr>');
+		$('"#'+groupTime +'"').append('<tr id ="'  + groupTime + '888"><td>'+ time + '</td>' + '<td>'
+				+isInput+'</td><td>' + evalue + '</td><td>' +egas + '</td><td>' + egasprice + '</td></tr>');
 	});
  
 });  
