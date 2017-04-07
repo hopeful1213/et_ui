@@ -103,12 +103,13 @@ $.ajax({
 		console.log('time is ' + time);
 		if(groupTime != date  + month +  year){						
 			if(getSmall != null){
+				//alert(getSmall.getSmallTable());
 				$('#'+ groupTime).append(getSmall.getSmallTable());
 			}			
 			groupTime = date  + month  +year;
 			getSmall = new MakeSmallTable(groupTime,groupTime);
             $('#example21').append(
-              '<tbody id="'+'a' + groupTime+'" data-toggle="collapse" data-target="#' + groupTime + '888">	'
+              '<tbody id="' + groupTime+'" data-toggle="collapse" data-target="#' + groupTime + '888">	'
               + '<tr><td>'+ groupTime + '</td><td><b>'+((totalEther<0) ? '<font color = "blue">적자</font>' : '<font color = "red">이익</font>')
               +'</b></td><td>' + totalEther + '</td><td>'  
 			  + totalGas + '</td><td>' + egasprice + '</td></tr></tbody>');    		
